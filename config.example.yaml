@@ -1,0 +1,35 @@
+# Example configuration file for the application
+# Copy this file as `config.yaml` and modify values as needed
+
+DatabaseDsn: "host=localhost user=your_user password=your_password dbname=your_db port=5432 TimeZone=UTC"
+DatabaseDisable: true
+
+HTTPServerReadTimeout: "15s"
+HTTPServerReadHeaderTimeout: "15s"
+HTTPServerWriteTimeout: "15s"
+HTTPServerAddress: "127.0.0.1:9010"
+HTTPServerPort: 4444
+
+JwtToken:
+  AccessSignKey: "your_secret_key"
+  AccessJWTExp: "168h"
+  RefreshSignKey: "your_refresh_secret"
+  RefreshExp: "720h"
+
+Mongo:
+  MongoURI: "mongodb://your_mongo_host:27017"
+
+V2rayAddress:
+  MtnAddress: "mtn.example.com"
+  MtnXAddress: "mtnx.example.com"
+  MciAddress: "mci.example.com"
+  MciXAddress: "mcix.example.com"
+  WifiAddress: "wifi.example.com"
+  WifiXAddress: "wifix.example.com"
+  Port443: 443
+  Port80: 80
+  Port2053: 2053
+  Port2082: 2083
+
+GlobalTimeout: "5s"
+
