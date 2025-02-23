@@ -30,6 +30,6 @@ func main() {
 		port = "3000" // برای تست لوکال
 	}
 
-	fmt.Println("🚀 Server is running on port", port)
+	fmt.Println("🚀 Server is running on port railway", port)
 	r.Run(":" + port)
 }
