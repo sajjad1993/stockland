@@ -3,7 +3,7 @@
 
 DatabaseDsn: "host=localhost user=your_user password=your_password dbname=your_db port=5432 TimeZone=UTC"
 DatabaseDisable: true
-
+AIKey: "aaa"
 HTTPServerReadTimeout: "15s"
 HTTPServerReadHeaderTimeout: "15s"
 HTTPServerWriteTimeout: "15s"

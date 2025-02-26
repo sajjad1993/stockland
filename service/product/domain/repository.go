@@ -9,10 +9,11 @@ type UserRepository interface {
 }
 
 type ProductRepository interface {
-	Create(product *Product) error
-	GetByID(id uint) (*Product, error)
-	GetByUUID(uuid string) (*Product, error)
-	GetBySKU(sku string) (*Product, error)
+	Create(ctx context.Context, product *Product) error
+	GetByID(ctx context.Context, id uint) (*Product, error)
+	GetByUUID(ctx context.Context, uuid string) (*Product, error)
+	GetBySKU(ctx context.Context, sku string) (*Product, error)
+	GetAll(ctx context.Context) ([]Product, error)
 }
 
 type ProductRequestRepository interface {

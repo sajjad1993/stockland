@@ -1,6 +1,8 @@
 package domain
 
+import "context"
+
 type AIProcessor interface {
-	ProcessRequest(prompt string) (string, error)
-	AnalyzeImage(imagePath string) ([]string, error)
+	ProcessRequest(ctx context.Context, prompt string, sub string) (string, error)
+	AnalyzeImage(ctx context.Context, imagePath string) ([]string, error)
 }

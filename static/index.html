@@ -108,7 +108,7 @@
             products.forEach(product => {
                 const productDiv = document.createElement('div');
                 productDiv.classList.add('product');
-                productDiv.innerHTML = `<strong>${product.name}</strong><br>دسته‌بندی: ${product.category}`;
+                productDiv.innerHTML = `<strong>${product.name}</strong><br>توضیحات: ${product.description}`;
                 resultsDiv.appendChild(productDiv);
             });
         }

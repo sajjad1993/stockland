@@ -6,7 +6,7 @@ import (
 	"github.com/sashabaranov/go-openai"
 )
 
-const Model = openai.GPT3Dot5Turbo
+const Model = openai.GPT4oMini
 
 type Processor struct {
 	apiKey string
@@ -22,19 +22,14 @@ func NewOpenAIProcessor(apiKey string) *Processor {
 	}
 }
 
-func (p *Processor) ProcessRequest(prompt string) (string, error) {
+func (p *Processor) ProcessRequest(ctx context.Context, prompt string, sub string) (string, error) {
 
 	client := openai.NewClient(p.apiKey)
 	resp, err := client.CreateChatCompletion(
-		context.Background(),
+		ctx,
 		openai.ChatCompletionRequest{
-			Model: Model,
-			Messages: []openai.ChatCompletionMessage{
-				{
-					Role:    openai.ChatMessageRoleUser,
-					Content: prompt,
-				},
-			},
+			Model:    Model,
+			Messages: getPrompt(prompt, sub),
 		},
 	)
 
@@ -44,4 +39,28 @@ func (p *Processor) ProcessRequest(prompt string) (string, error) {
 	}
 
 	return resp.Choices[0].Message.Content, nil
+}
+
+func getPrompt(prompt string, sub string) []openai.ChatCompletionMessage {
+	return []openai.ChatCompletionMessage{
+		{
+			Role: openai.ChatMessageRoleSystem,
+			Content: fmt.Sprintf(
+				"You are a sales manager specializing in stock car tools. "+
+					"Never send links to users. "+
+					"Only suggest from these products: %s. "+
+					"Help the user choose which one works best for them.",
+				sub,
+			),
+		},
+		{
+			Role:    openai.ChatMessageRoleUser,
+			Content: prompt,
+		},
+	}
+}
+
+func (p *Processor) AnalyzeImage(ctx context.Context, imagePath string) ([]string, error) {
+	//TODO implement me
+	panic("implement me")
 }

@@ -12,7 +12,6 @@ JwtToken:
   AccessJWTExp: "168h"
   RefreshSignKey: ""
   RefreshExp: "720h"
-
 Mongo:
   MongoURI: ""
 
@@ -29,3 +28,4 @@ V2rayAddress:
   Port2083: 2083
 
 GlobalTimeout: "5s"
+
