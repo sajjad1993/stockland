@@ -7,6 +7,7 @@ require (
 	github.com/gin-gonic/gin v1.10.0
 	github.com/go-redis/redis/v8 v8.11.5
 	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/google/uuid v1.1.2
 	github.com/google/wire v0.6.0
 	github.com/hjhussaini/shared-go v0.0.0-20220429183523-34e22d6afcd6
 	github.com/jackc/pgx/v5 v5.7.2

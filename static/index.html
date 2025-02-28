@@ -16,6 +16,7 @@
             height: 100vh;
             margin: 0;
         }
+
         .container {
             width: 90%;
             max-width: 500px;
@@ -24,10 +25,12 @@
             border-radius: 15px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
+
         h2 {
             text-align: center;
             margin-bottom: 20px;
         }
+
         input[type="text"] {
             width: 100%;
             padding: 10px;
@@ -35,6 +38,7 @@
             border: none;
             border-radius: 5px;
         }
+
         button {
             width: 100%;
             padding: 10px;
@@ -45,12 +49,15 @@
             font-size: 16px;
             cursor: pointer;
         }
+
         button:hover {
             background-color: #e68a00;
         }
+
         .results {
             margin-top: 20px;
         }
+
         .product {
             background-color: #333333;
             padding: 10px;
@@ -60,59 +67,49 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h2>جستجوی محصولات</h2>
-        <input type="text" id="searchInput" placeholder="نام محصول را وارد کنید...">
-        <button onclick="searchProducts()">جستجو</button>
-        <div class="results" id="results"></div>
-    </div>
+<div class="container">
+    <h2>جستجوی محصولات</h2>
+    <input type="text" id="searchInput" placeholder="نام محصول را وارد کنید...">
+    <button onclick="searchProducts()">جستجو</button>
+    <div class="results" id="results"></div>
+</div>
 
-    <script>
-        function searchProducts() {
-            const query = document.getElementById('searchInput').value.trim();
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '';
+<script>
+    function searchProducts() {
+        const query = document.getElementById('searchInput').value.trim();
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = '';
 
-            if (query === '') {
-                resultsDiv.innerHTML = '<p>لطفاً نام محصول را وارد کنید.</p>';
-                return;
-            }
-
-            // 📌 ارسال درخواست به سرور
-            fetch(`/api/search?q=${encodeURIComponent(query)}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("مشکل در دریافت داده‌ها");
-                    }
-                    return response.json();
-                })
-                .then(data => {
-                    updateResults(data);
-                })
-                .catch(error => {
-                    console.error("❌ خطا:", error);
-                    resultsDiv.innerHTML = '<p>مشکلی در دریافت داده‌ها پیش آمد.</p>';
-                });
+        if (query === '') {
+            resultsDiv.innerHTML = '<p>لطفاً نام محصول را وارد کنید.</p>';
+            return;
         }
 
-        // 📌 تابع برای نمایش نتایج دریافتی از سرور
-        function updateResults(products) {
-            const resultsDiv = document.getElementById('results');
-            resultsDiv.innerHTML = '';
-
-            if (products.length === 0) {
-                resultsDiv.innerHTML = '<p>محصولی یافت نشد.</p>';
-                return;
-            }
-
-            products.forEach(product => {
-                const productDiv = document.createElement('div');
-                productDiv.classList.add('product');
-                productDiv.innerHTML = `<strong>${product.name}</strong><br>توضیحات: ${product.description}`;
-                resultsDiv.appendChild(productDiv);
+        // 📌 ارسال درخواست به سرور
+        fetch(`/api/search?q=${encodeURIComponent(query)}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error("مشکل در دریافت داده‌ها");
+                }
+                console.log(response)
+                return response.json();
+            })
+            .then(data => {
+                console.log(data)
+                newUpdateResults(data);
+            })
+            .catch(error => {
+                console.error("❌ خطا:", error);
+                resultsDiv.innerHTML = '<p>مشکلی در دریافت داده‌ها پیش آمد.</p>';
             });
-        }
-    </script>
+    }
+
+    function newUpdateResults(result) {
+        const resultsDiv = document.getElementById('results');
+        resultsDiv.innerHTML = `<strong>${result.Message}<strong`;
+    }
+
+</script>
 </body>
 </html>
 

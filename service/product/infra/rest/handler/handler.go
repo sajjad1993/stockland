@@ -6,6 +6,6 @@ type Handler struct {
 	ProductRequestUsecase usecase.ProductRequestUsecase
 }
 
-func New() *Handler {
+func New(ProductRequestUsecase usecase.ProductRequestUsecase) *Handler {
 	return &Handler{}
 }

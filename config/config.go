@@ -57,6 +57,7 @@ type Config struct {
 	JwtToken
 	Mongo
 	V2rayAddress
+	AIKey string
 }
 
 // NewConfigFromViper NewConfigFromEnv initializes configuration from environment variables and files
@@ -88,6 +89,7 @@ func NewConfigFromViper() Config {
 	viper.SetDefault("V2rayAddress.Port2053", 2053)
 	viper.SetDefault("V2rayAddress.Port2083", 2083)
 	viper.SetDefault("GlobalTimeout", "5s")
+	viper.SetDefault("AIkey", "5s")
 
 	// Read configuration file (optional)
 	if err := viper.ReadInConfig(); err != nil {

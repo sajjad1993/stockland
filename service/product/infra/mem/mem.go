@@ -11,6 +11,9 @@ type Mem struct {
 	mu     sync.RWMutex
 }
 
+func NewMemRepository() *Mem {
+	return &Mem{}
+}
 func (m *Mem) Create(ctx context.Context, product *domain.Product) error {
 	m.mu.Lock()
 	defer m.mu.Unlock()

@@ -14,19 +14,17 @@ func NewProductRequestUsecase(repo domain.ProductRepository, ai domain.AIProcess
 	return &ProductRequestUsecase{productRepo: repo, aiProcessor: ai}
 }
 
-func (uc *ProductRequestUsecase) CreateRequest(ctx context.Context, request domain.ProductRequest) error {
+func (uc *ProductRequestUsecase) CreateRequest(ctx context.Context, request domain.ProductRequest) (domain.Offer, error) {
 	products, err := uc.productRepo.GetAll(ctx)
 	if err != nil {
-		return err
+		return domain.Offer{}, err
 	}
 
-	_, err = uc.aiProcessor.ProcessRequest(ctx, request.Prompt, provideSubPrompt(products))
+	response, err := uc.aiProcessor.ProcessRequest(ctx, request.Prompt, provideSubPrompt(products))
 	if err != nil {
-		return err
+		return response, err
 	}
-	//todo  get the actual products from the database
-	request.Status = "pending"
-	return nil
+	return response, nil
 }
 
 func (uc *ProductRequestUsecase) AnalyzeImage(ctx context.Context, imagePath string) ([]string, error) {

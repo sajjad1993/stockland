@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"github.com/sashabaranov/go-openai"
+	"stockland/service/product/domain"
 )
 
 const Model = openai.GPT4oMini
@@ -22,8 +23,7 @@ func NewOpenAIProcessor(apiKey string) *Processor {
 	}
 }
 
-func (p *Processor) ProcessRequest(ctx context.Context, prompt string, sub string) (string, error) {
-
+func (p *Processor) ProcessRequest(ctx context.Context, prompt string, sub string) (domain.Offer, error) {
 	client := openai.NewClient(p.apiKey)
 	resp, err := client.CreateChatCompletion(
 		ctx,
@@ -35,10 +35,10 @@ func (p *Processor) ProcessRequest(ctx context.Context, prompt string, sub strin
 
 	if err != nil {
 		fmt.Printf("ChatCompletion error: %v\n", err)
-		return "", err
+		return domain.Offer{}, err
 	}
-
-	return resp.Choices[0].Message.Content, nil
+	offer := domain.NewOffer(resp.Choices[0].Message.Content)
+	return offer, nil
 }
 
 func getPrompt(prompt string, sub string) []openai.ChatCompletionMessage {
